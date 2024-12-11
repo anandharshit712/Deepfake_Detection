@@ -1,0 +1,12 @@
+this is a sample testing file.
+here are some to the required modules listed below.
+torch
+torchvision
+os
+numpy
+pandas
+cv2
+matplotlib.pyplot
+time
+sys
+streamlit
