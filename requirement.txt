@@ -5,8 +5,11 @@ torchvision
 os
 numpy
 pandas
-cv2
+opencv-python
 matplotlib.pyplot
 time
 sys
 streamlit
+cmake
+face-recognition
+dlib
