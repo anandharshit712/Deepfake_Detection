@@ -3,6 +3,16 @@ import torch
 from torchvision import transforms
 from Predict import validation_dataset, predict, Model
 import matplotlib.pyplot as plt
+import subprocess
+import sys
+
+def install_requirements():
+    try:
+        print("Installing requirements...")
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"])
+        print("Installed requirements...")
+    except:
+        print("Failed to install requirements...")
 
 st.set_page_config(page_title="Deepfake Detection")
 st.title("Deepfake Detector")
