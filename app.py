@@ -5,7 +5,7 @@ from Predict import validation_dataset, predict, Model
 import matplotlib.pyplot as plt
 
 st.set_page_config(page_title="Deepfake Detection")
-
+st.title("Deepfake Detector")
 # Upload video
 video = st.file_uploader(label="Upload a video file", type="mp4")
 
