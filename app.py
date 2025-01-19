@@ -3,10 +3,6 @@ import torch
 from torchvision import transforms
 from Predict import validation_dataset, predict, Model
 import matplotlib.pyplot as plt
-import subprocess
-import sys
-
-
 
 st.set_page_config(page_title="Deepfake Detection")
 st.title("Deepfake Detector")

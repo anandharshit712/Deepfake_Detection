@@ -1,23 +1,14 @@
-# #!pip3 install face_recognition
-# from pip._internal import main as pipmain
-# pipmain(['install', 'face_recognition'])
 import torch
-import torchvision
 from torchvision import transforms
-from torch.utils.data import DataLoader
 from torch.utils.data.dataset import Dataset
-import os
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
 import face_recognition
-from torch.autograd import Variable
-import time
-import sys
 from torch import nn
 from torchvision import models
 
-#For ResNet 34
+#For ResNet 50
 
 #Model with feature visualization
 class Model(nn.Module):
