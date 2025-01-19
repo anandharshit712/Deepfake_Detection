@@ -23,7 +23,7 @@ from torchvision import models
 class Model(nn.Module):
     def __init__(self, num_classes,latent_dim= 2048, lstm_layers=1 , hidden_dim = 2048, bidirectional = False):
         super(Model, self).__init__()
-        model = models.resnet34(pretrained = True)
+        model = models.resnet50(pretrained = True)
         self.model = nn.Sequential(*list(model.children())[:-2])
         self.lstm = nn.LSTM(latent_dim,hidden_dim, lstm_layers,  bidirectional)
         self.relu = nn.LeakyReLU()
@@ -38,8 +38,8 @@ class Model(nn.Module):
         x = x.view(batch_size,seq_length,2048)
         x_lstm,_ = self.lstm(x,None)
         return fmap,self.dp(self.linear1(x_lstm[:,-1,:]))
-    
-    
+
+
 im_size = 112
 mean=[0.485, 0.456, 0.406]
 std=[0.229, 0.224, 0.225]
@@ -57,7 +57,7 @@ def im_convert(tensor):
     return image
 
 def predict(model,img,path = './'):
-  fmap,logits = model(img.to('cuda'))
+  fmap,logits = model(img)
   params = list(model.parameters())
   weight_softmax = model.linear1.weight.detach().cpu().numpy()
   logits = sm(logits)
@@ -127,31 +127,32 @@ def im_plot(tensor):
     image = image*255.0
     plt.imshow(image.astype(int))
     plt.show()
-    
-    
-#Code for making prediction
-im_size = 112
-mean=[0.485, 0.456, 0.406]
-std=[0.229, 0.224, 0.225]
-
-train_transforms = transforms.Compose([
-                                        transforms.ToPILImage(),
-                                        transforms.Resize((im_size,im_size)),
-                                        transforms.ToTensor(),
-                                        transforms.Normalize(mean,std)])
-
-path_to_videos = ['/content/drive/MyDrive/Test Video/Test Video.mp4']
 
 
-video_dataset = validation_dataset(path_to_videos,sequence_length = 20,transform = train_transforms)
-model = Model(2).cuda()
-path_to_model = '/content/drive/MyDrive/Trained Model/ResNet50_20.pt'
-model.load_state_dict(torch.load(path_to_model))
-model.eval()
-for i in range(0,len(path_to_videos)):
-  print(path_to_videos[i])
-  prediction = predict(model,video_dataset[i],'./')
-  if prediction[0] == 1:
-    print("REAL")
-  else:
-    print("FAKE")
+# # Code for making prediction
+# im_size = 112
+# mean=[0.485, 0.456, 0.406]
+# std=[0.229, 0.224, 0.225]
+
+# train_transforms = transforms.Compose([
+#                                         transforms.ToPILImage(),
+#                                         transforms.Resize((im_size,im_size)),
+#                                         transforms.ToTensor(),
+#                                         transforms.Normalize(mean,std)])
+#
+# path_to_videos = ['C:/Users/anand/Downloads/Projects/Deepfake/Final Outputs/test video/bwywgggeen.mp4']
+#
+#
+# video_dataset = validation_dataset(path_to_videos,sequence_length = 20,transform = train_transforms)
+# model = Model(2)
+# path_to_model = 'C:/Users/anand/Downloads/Projects/Deepfake/Final Outputs/Trained model/ResNet50_20.pt'
+# map_location = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
+# model.load_state_dict(torch.load(path_to_model, map_location = map_location))
+# model.eval()
+# for i in range(0,len(path_to_videos)):
+#   print(path_to_videos[i])
+#   prediction = predict(model,video_dataset[i],'./')
+#   if prediction[0] == 1:
+#     print("REAL")
+#   else:
+#     print("FAKE")
