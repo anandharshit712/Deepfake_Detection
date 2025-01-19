@@ -1,13 +1,3 @@
-def install_requirements():
-    try:
-        print("Installing requirements...")
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"])
-        print("Installed requirements...")
-    except:
-        print("Failed to install requirements...")
-
-install_requirements()
-
 import streamlit as st
 import torch
 from torchvision import transforms
