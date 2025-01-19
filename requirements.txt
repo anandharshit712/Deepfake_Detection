@@ -1,0 +1,13 @@
+torch
+torchvision
+os
+numpy
+pandas
+opencv-python
+matplotlib.pyplot
+time
+sys
+streamlit
+cmake
+face-recognition
+dlib
